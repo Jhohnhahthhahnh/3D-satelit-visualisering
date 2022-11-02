@@ -1,10 +1,11 @@
 class Satellit extends Object
 {
  PVector dimensions;
+ PImage billede;
+ PVector location;
  Satellit(PVector _dimensions)
  {
    super(new PVector(), new PImage());
-   dimensions = _dimensions;
  } 
  
  void updateLocation()

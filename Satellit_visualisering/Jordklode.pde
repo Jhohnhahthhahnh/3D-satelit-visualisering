@@ -12,10 +12,4 @@ class jordklode extends Object
  void drawJordklode()
  {
  }
- 
- 
- PVector getLocationApi()
- {
-   return new PVector();
- }
 }

@@ -1,8 +1,23 @@
-class Jordklode extends Object
+class jordklode extends Object
 {
- Jordklode(float radius, PVector _location, PImage _billede)
+ float radius;
+ jordklode(PVector _location, PImage _billede, float _radius)
  {
    super(_location, _billede);
-   radius = 6.371;
+ } 
+ 
+ void updateLocation()
+ {
+   
+ }
+ 
+ void drawsatellit()
+ {
+   
+ }
+ 
+ PVector getLocationApi()
+ {
+   return new PVector();
  }
 }

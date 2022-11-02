@@ -1,4 +1,4 @@
-class Object
+abstract class Object
 {
   PVector location;
   PImage billede;

@@ -1,4 +1,0 @@
-class Jordklode extends Object
-{
- 
-}

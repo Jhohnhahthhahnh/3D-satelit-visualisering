@@ -1,4 +1,4 @@
-class Jordklode
+class Jordklode extends Object
 {
  
 }

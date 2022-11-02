@@ -12,4 +12,9 @@ class Object
   {
     
   }
+  
+  void rotateView()
+  {
+    
+  }
 }

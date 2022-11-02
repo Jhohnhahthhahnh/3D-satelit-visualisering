@@ -1,4 +1,4 @@
-class Satellit
+class Object
 {
   PVector location;
   PImage billede;
@@ -8,5 +8,8 @@ class Satellit
     location = _location;
     billede = _billede;
   }
-  
+  void drawObject()
+  {
+    
+  }
 }

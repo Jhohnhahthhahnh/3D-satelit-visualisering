@@ -7,4 +7,18 @@ class Satellit extends Object
    dimensions = _dimensions;
  } 
  
+ void updateLocation()
+ {
+   
+ }
+ 
+ void drawsatellit()
+ {
+   
+ }
+ 
+ PVector getLocationApi()
+ {
+   return new PVector();
+ }
 }

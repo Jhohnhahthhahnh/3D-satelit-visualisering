@@ -5,4 +5,10 @@ class Jordklode extends Object
    super(_location, _billede);
    radius = 6.371;
  }
+ 
+ void drawJordklode()
+ {
+   translate(1/2*height, 1/2*width, -5);
+   sphere(radius);
+ }
 }

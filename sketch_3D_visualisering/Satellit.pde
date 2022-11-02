@@ -1,0 +1,4 @@
+class Satellit extends Object
+{
+  
+}

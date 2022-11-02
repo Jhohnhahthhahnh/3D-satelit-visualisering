@@ -20,10 +20,4 @@ class jordklode extends Object
  {
    return new PVector();
  }
- 
- void drawJordklode()
- {
-   translate(1/2*height, 1/2*width, -5);
-   sphere(radius);
- }
 }

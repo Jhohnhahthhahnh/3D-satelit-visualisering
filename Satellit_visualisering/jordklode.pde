@@ -4,6 +4,7 @@ class jordklode extends Object
  jordklode(PVector _location, PImage _billede, float _radius)
  {
    super(_location, _billede);
+   this.radius = _radius;
  }
  
  

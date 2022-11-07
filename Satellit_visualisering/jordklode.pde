@@ -12,7 +12,7 @@ class jordklode extends Object
  {
    PShape jord;
     pushMatrix();
-    jord = createShape(SPHERE, radius);
+    jord = createShape(SPHERE, radius/100);
     jord.setTexture(billede);
     noStroke();
     translate(width/2, height/2); 

@@ -18,8 +18,7 @@ class Satellit extends Object
   pushMatrix();
   System.out.println(location.x);
   translate(location.x, location.y, location.z); 
-  noFill();
-  translate(width/2, height/2,0);
+  fill(125);
   box(dimensions.x, dimensions.y, dimensions.z);
   popMatrix();
 

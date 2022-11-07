@@ -2,21 +2,20 @@ class Satellit extends Object
 {
  JSONObject json;
  PVector dimensions;
- PImage billede;
- PVector location;
  Satellit(PVector _dimensions)
  {
    super(new PVector(), new PImage());
+   this.dimensions = _dimensions;
  } 
  
  void updateLocation()
  {
-   
+   location = getLocationApi();
  }
  
  void drawsatellit()
  {
-   
+  
  }
  
  PVector getLocationApi()

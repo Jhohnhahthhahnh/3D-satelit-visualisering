@@ -11,7 +11,10 @@ class jordklode extends Object
  
  void drawJordklode()
  {
-   
+   push();
+   translate(width/2, height/2, 0);
+   sphere(radius);
+   pop();
  }
  
  PVector getLocationApi()

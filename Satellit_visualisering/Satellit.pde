@@ -15,9 +15,11 @@ class Satellit extends Object
  
  void drawsatellit()
  {
-   
+  pushMatrix();
+  translate(width/2, height/2,0);
+  box(dimensions.x, dimensions.y, dimensions.z);
+  popMatrix();
  }
- 
  PVector getLocationApi()
  {
    return new PVector();

@@ -16,9 +16,12 @@ class jordklode extends Object
     lightSpecular(255, 255, 255);
     directionalLight(204, 204, 204, 0, 0, -1);
     translate(width/2, height/2, 0);
+    lights();
+
     specular(204, 102, 0);
     sphere(radius);
     popMatrix();
+
  }
  
 

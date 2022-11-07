@@ -20,9 +20,7 @@ class jordklode extends Object
     rotateY(yangel);
     shape(jord);
     popMatrix();
-
-        
-
+  
  }
  
 

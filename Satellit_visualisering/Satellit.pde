@@ -17,10 +17,18 @@ class Satellit extends Object
  
  void drawSatellit()
  {
+
   pushMatrix();
-  translate(location.x, location.y, location.z); 
   fill(125);
+  translate(width/2, height/2); 
+  rotateX(xrotate);
+  rotateY(yangel);
+
+  translate(location.x, location.y, location.z); 
+
+
   box(dimensions.x, dimensions.y, dimensions.z);
+
   popMatrix();
 
  }

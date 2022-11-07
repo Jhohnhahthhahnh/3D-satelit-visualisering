@@ -16,8 +16,12 @@ class jordklode extends Object
     jord.setTexture(billede);
     noStroke();
     translate(width/2, height/2); 
+    rotateX(xrotate);
+    rotateY(yangel);
     shape(jord);
     popMatrix();
+
+        
 
  }
  

@@ -10,14 +10,13 @@ class jordklode extends Object
  
  void drawJordklode()
  {
-   pushMatrix();
-   noStroke();
-    fill(0, 51, 102);
-    lightSpecular(255, 255, 255);
-    directionalLight(204, 204, 204, 0, 0, -1);
-    translate(width/2, height/2, 0);
-    specular(204, 102, 0);
-    sphere(radius);
+   PShape jord;
+    pushMatrix();
+    jord = createShape(SPHERE, radius);
+    jord.setTexture(billede);
+    noStroke();
+    translate(width/2, height/2); 
+    shape(jord);
     popMatrix();
  }
  

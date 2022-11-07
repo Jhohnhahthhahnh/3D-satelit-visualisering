@@ -15,8 +15,10 @@ class Satellit extends Object
  
  void drawSatellit()
  {
-  updateLocation();
   pushMatrix();
+  System.out.println(location.x);
+  translate(location.x, location.y, location.z); 
+  noFill();
   translate(width/2, height/2,0);
   box(dimensions.x, dimensions.y, dimensions.z);
   popMatrix();

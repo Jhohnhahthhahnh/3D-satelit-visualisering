@@ -21,9 +21,11 @@ class Satellit extends Object
  {
    PShape Myre;
   pushMatrix();
-  /*translate(location.x, location.y, location.z); 
-  fill(125);
-  box(dimensions.x, dimensions.y, dimensions.z); */
+    translate(width/2, height/2); 
+  rotateX(xrotate);
+  rotateY(yangel);
+    translate(location.x, location.y, location.z); 
+
   Myre = createShape(BOX, dimensions.x, dimensions.y, dimensions.z);
   Myre.setTexture(billede);
   noStroke();

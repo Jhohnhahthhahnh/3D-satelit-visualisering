@@ -11,10 +11,6 @@ class Object
   }
 
 
-  void drawObject()
-  {
-    i++;
-  }
   
   void rotateView()
   {

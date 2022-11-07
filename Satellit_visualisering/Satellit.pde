@@ -16,17 +16,19 @@ class Satellit extends Object
    speedPhiTheta = getSpeedApi();
  } 
  
- void updateLocation()
+ PVector updateLocation()
  {
    phiTheta = new PVector(phiTheta.x + speedPhiTheta.x,phiTheta.y + speedPhiTheta.y);
-   float x = (jorden.radius+altitude/100)*sin(phiTheta.x*PI/180)*cos(phiTheta.y*PI/180);
-   float y = (jorden.radius+altitude/100)*sin(phiTheta.x*PI/180)*sin(phiTheta.y*PI/180);
-   float z = (jorden.radius+altitude/100)*cos(phiTheta.x*PI/180);
-   location = new PVector(x,y,z);
+   float x = ((jorden.radius+altitude/100)*sin(phiTheta.x*PI/180)*cos(phiTheta.y*PI/180))/100;
+   float y = ((jorden.radius+altitude/100)*sin(phiTheta.x*PI/180)*sin(phiTheta.y*PI/180))/100;
+   float z = ((jorden.radius+altitude/100)*cos(phiTheta.x*PI/180))/100;
+   return new PVector(x,y,z);
  }
  
  void drawSatellit()
  {
+   location = updateLocation();
+   System.out.println(location.toString());
    PShape Myre;
   pushMatrix();
     translate(width/2, height/2); 
@@ -37,7 +39,7 @@ class Satellit extends Object
   Myre = createShape(BOX, dimensions.x, dimensions.y, dimensions.z);
   Myre.setTexture(billede);
   noStroke();
-  translate(width/2, height/2); 
+  translate(location.x, location.y); 
   shape(Myre);
   popMatrix();
 

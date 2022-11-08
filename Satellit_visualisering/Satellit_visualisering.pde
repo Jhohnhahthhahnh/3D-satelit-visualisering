@@ -25,13 +25,16 @@ void draw()
   satellit.drawSatellit();
   
 }
-
+void mousePressed()
+{
+    previousMousePosition = new PVector(mouseX, mouseY);
+}
 PVector previousMousePosition = new PVector();
 void mouseDragged()
 {
-  xrotate += mouseX - previousMousePosition.x;
+  
+  yangel += (mouseX - previousMousePosition.x)/100;
+  xrotate -= (mouseY - previousMousePosition.y)/100;
   previousMousePosition = new PVector(mouseX, mouseY);
-  xrotate += 0.1;
-  yangel += 0.1;
 
 }

@@ -45,7 +45,7 @@ void drawSatellit()
  
  PVector updateLocation()
  {
-   phiTheta = new PVector((phiTheta.x + speedPhiTheta.x),phiTheta.y + speedPhiTheta.y);
+   phiTheta = new PVector((phiTheta.x + speedPhiTheta.x*40),phiTheta.y + speedPhiTheta.y*40);
    System.out.println("latitude, longitude: = " + phiTheta.x%360 + " " + phiTheta.y%360);
 
    float x = (((jorden.radius+altitude)/100)*sin((phiTheta.x%360)*PI/180));

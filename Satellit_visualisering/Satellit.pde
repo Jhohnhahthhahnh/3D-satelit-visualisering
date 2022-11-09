@@ -53,7 +53,7 @@ void drawSatellit()
  {
    //get location of satellite
    location = updateLocation();
-   System.out.println("location = " + location);
+   System.out.println("location = " + location + satellitID);
 
    
    //draw satellite as myre.
@@ -82,6 +82,7 @@ void drawSatellit()
      currentIndex = 0;
    }
    currentIndex += 10;
+   System.out.println("index" + currentIndex + satellitID);
    
    
    //phitheta y is longitude, x is latitude

@@ -1,8 +1,8 @@
 import java.lang.Math;
 
-PImage satellitbillede;
+PImage satellitbillede,rum;
 PImage jordbillede;
-Satellit satellit;
+Satellit[] satellit;
 float xrotate= 0;
 float yangel = 0;
 
@@ -15,11 +15,14 @@ void setup()
   frameRate(60);
   size(600,600, P3D);
   satellitbillede = loadImage("Dansemyre 1.png");
+  rum = loadImage("rum.jpg");
   jordbillede = loadImage("earth.jpg");
   jorden = new jordklode(new PVector(), jordbillede, 63.71);
-  rummet = new jordklode(new PVector(), jordbillede, 700);
-
-  satellit = new Satellit(new PVector(100, 100, 100), satellitbillede, new PVector(20, 10, 20), 25544, 2008, 10);
+  rummet = new jordklode(new PVector(), rum, 700);
+  satellit = new Satellit[]{
+    new Satellit(new PVector(100, 100, 100), satellitbillede, new PVector(20, 10, 20), 25544, 408, 10),
+    new Satellit(new PVector(100, 100, 100), satellitbillede, new PVector(20, 10, 20), 36516, 408, 10)
+  };
 }
 
 void draw()
@@ -27,7 +30,11 @@ void draw()
   clear();
   background(255);
   jorden.drawJordklode();
-  satellit.drawSatellit();
+  for (int i=0; i < satellit.length; i++)
+  {
+    satellit[i].drawSatellit();
+  }
+  
   rummet.drawJordklode();
 }
 void mousePressed()

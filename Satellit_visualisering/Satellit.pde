@@ -7,7 +7,7 @@ class Satellit extends Object
  int endIndex = 0;
  int currentIndex;
  int radius;
- int arraySize = 6000;
+ int arraySize = 200000;
  
  //magic variables used in converting LLA to XYZ
 float f_inv = 298.257224;
@@ -34,25 +34,13 @@ float e2 = 1 - (1 - f) * (1 - f);
    PVector startlocation = getLocationApi(0);
    endIndex = endIndex + 100;
    System.out.println(startlocation.y + " new " + getLocationApi(endIndex).y);
-
-   while(endIndex < arraySize - 15 && Math.abs(startlocation.y - getLocationApi(endIndex).y) > 1 && times < 2)
-   {
-     endIndex++;
-     if(Math.abs(startlocation.y - getLocationApi(endIndex).y) < 1)
-     {
-       endIndex = endIndex + 500;
-       times++;
-     }
-     System.out.println(endIndex + "times is " + times);
-     if(endIndex < (arraySize - 10))
-     {
-       System.out.println(endIndex);
-       System.out.println(startlocation.y + " currentlocation " + getLocationApi(endIndex).y + " ID " + satellitID);
-     }
-   }
-   
+   endIndex = arraySize - 15;
  } 
  
+ void findmaxminlatittudelongitude()
+ {
+   
+ }
  
 void drawSatellit()
  {
@@ -85,7 +73,7 @@ void drawSatellit()
    {
      currentIndex = 0;
    }
-   currentIndex += 10;
+   currentIndex += 3;
    
    
    //phitheta y is longitude, x is latitude
@@ -124,7 +112,7 @@ void drawSatellit()
  JSONArray getFutureLocationsFromApi() //method that returns an array with a lot of positions
  {
    //load the information, and save it in an object, to be manipulated.
-   json = loadJSONObject("https://api.n2yo.com/rest/v1/satellite/positions/"+satellitID+"/41.702/-76.014/4"+altitude+"/6000/&apiKey=UEU9UF-CWPF7M-28SHD2-4Y5Q");
+   json = loadJSONObject("https://api.n2yo.com/rest/v1/satellite/positions/"+satellitID+"/41.702/-76.014/4"+altitude+"/" + arraySize + "/&apiKey=UEU9UF-CWPF7M-28SHD2-4Y5Q");
    JSONArray toArray = json.getJSONArray("positions");
    
    return toArray;

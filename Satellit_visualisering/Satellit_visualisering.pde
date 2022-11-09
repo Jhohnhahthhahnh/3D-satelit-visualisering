@@ -16,7 +16,7 @@ void setup()
   satellitbillede = loadImage("Dansemyre 1.png");
   rum = loadImage("rum.jpg");
   jordbillede = loadImage("earth.jpg");
-  jorden = new jordklode(new PVector(), jordbillede, 63.71);
+  jorden = new jordklode(new PVector(), jordbillede, 150);
   rummet = new jordklode(new PVector(), rum, 700);
   satellit = new Satellit[]{
     new Satellit(new PVector(100, 100, 100), satellitbillede, new PVector(20, 10, 20), 25544, 2008, 10),

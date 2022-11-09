@@ -4,12 +4,14 @@ class Satellit extends Object
  PVector dimensions;
  int satellitID;
  int altitude;
- int count;
+ int endIndex = 0;
+ int currentIndex;
  
-float R = 63.71;
+ //magic variables used in converting LLA to XYZ
 float f_inv = 298.257224;
 float f = 1.0 / f_inv;
 float e2 = 1 - (1 - f) * (1 - f);
+
  //note - phi is the angle on the flat plan, compared to the z axis (going out the screen)
  //note - theta is the angle compared to the y axis, if theta is 0 degrees, then we go straight up.
 
@@ -22,6 +24,26 @@ float e2 = 1 - (1 - f) * (1 - f);
    this.satellitID = _satellitID;
    this.altitude = _altitude;
    allLocations = getFutureLocationsFromApi();
+   phiTheta = getLocationApi(0);
+   
+   //calculate how long the satellite should loop
+   int times = 0;
+   PVector startlocation = getLocationApi(0);
+   endIndex = endIndex + 100;
+   System.out.println(startlocation.y + " new " + getLocationApi(endIndex).y);
+
+   while(Math.abs(startlocation.y - getLocationApi(endIndex).y) > 1 && times < 2)
+   {
+     endIndex++;
+     if(startlocation.y - getLocationApi(endIndex).y < 1)
+     {
+       endIndex = endIndex + 100;
+       times++;
+     }
+     System.out.println(endIndex + "times is " + times);
+   }
+   endIndex = 6000;
+   
  } 
  
  
@@ -49,21 +71,18 @@ void drawSatellit()
  
  PVector updateLocation()
  {
-   try
+   phiTheta = getLocationApi(currentIndex);
+   if(currentIndex > endIndex)
    {
-     phiTheta =getLocationApi(count);
+     currentIndex = 0;
    }
-   catch(Exception e)
-   {
-     count = 0;
-   }
+   currentIndex += 10;
    
-   count += 10;
-   System.out.println("latitude, longitude: = " + phiTheta.x%360 + " " + phiTheta.y%360);
-    //phitheta y is longitude, x is latitude
-    float latitude = phiTheta.x;
-    float longitude = phiTheta.y;
-    
+   
+   //phitheta y is longitude, x is latitude
+   float latitude = phiTheta.x;
+   float longitude = phiTheta.y;
+   
     double cosLat = Math.cos(latitude * PI / 180);
     double sinLat = Math.sin(latitude * PI / 180);
     
@@ -73,9 +92,9 @@ void drawSatellit()
    double c = 1 / Math.sqrt(cosLat * cosLat + (1 - f) * (1 - f) * sinLat * sinLat);
    double s = (1 - f) * (1 - f) * c;
 
-    double  x = ((R*c + altitude/100) * cosLat * cosLong);
-    double y = ((R*c + altitude/100) * cosLat * sinLong);
-    double z = ((R*s + altitude/100) * sinLat);
+    double  x = ((jorden.radius*c + altitude/100) * cosLat * cosLong);
+    double y = ((jorden.radius*c + altitude/100) * cosLat * sinLong);
+    double z = ((jorden.radius*s + altitude/100) * sinLat);
    
    
    return new PVector((float)x,(float)y,(float)z);
@@ -100,20 +119,6 @@ void drawSatellit()
    json = loadJSONObject("https://api.n2yo.com/rest/v1/satellite/positions/"+satellitID+"/41.702/-76.014/4"+altitude+"/10000/&apiKey=UEU9UF-CWPF7M-28SHD2-4Y5Q");
    JSONArray toArray = json.getJSONArray("positions");
    
-   //save the first position of the object
-   JSONObject toObject1 = toArray.getJSONObject(0);
-   float phi1 = toObject1.getFloat("satlatitude"); //save the lattitude angle
-   float theta1 = toObject1.getFloat("satlongitude"); //save the longitude angle
-
-   
-   //save the second position of the object
-   JSONObject toObject2 = toArray.getJSONObject(1);
-   float phi2 = toObject2.getFloat("satlatitude");
-   float theta2 = toObject2.getFloat("satlongitude");
-   
-   //now convert to direction vector, and return.
-   float speedPhi = phi2-phi1; 
-   float speedTheta = theta2-theta1;
    return toArray;
  }
 }

@@ -1,3 +1,5 @@
+import java.lang.Math;
+
 PImage satellitbillede;
 PImage jordbillede;
 Satellit satellit;

@@ -4,20 +4,24 @@ class Satellit extends Object
  PVector dimensions;
  int satellitID;
  int altitude;
+ int count;
  
+float R = 63.71;
+float f_inv = 298.257224;
+float f = 1.0 / f_inv;
+float e2 = 1 - (1 - f) * (1 - f);
  //note - phi is the angle on the flat plan, compared to the z axis (going out the screen)
  //note - theta is the angle compared to the y axis, if theta is 0 degrees, then we go straight up.
 
  PVector phiTheta; //pvector containing phi, and theta.
- PVector speedPhiTheta; //vector describing the direction of the satellite, in phi and theta
+ JSONArray allLocations; //vector describing the direction of the satellite, in phi and theta
  Satellit(PVector _location, PImage _billede, PVector _dimensions, int _satellitID, int _altitude)
  {
    super(_location, _billede);
    this.dimensions = _dimensions;
    this.satellitID = _satellitID;
    this.altitude = _altitude;
-   phiTheta = getLocationApi();
-   speedPhiTheta = getSpeedApi();
+   allLocations = getFutureLocationsFromApi();
  } 
  
  
@@ -45,36 +49,55 @@ void drawSatellit()
  
  PVector updateLocation()
  {
-   phiTheta = new PVector((phiTheta.x + speedPhiTheta.x*40),phiTheta.y + speedPhiTheta.y*40);
+   try
+   {
+     phiTheta =getLocationApi(count);
+   }
+   catch(Exception e)
+   {
+     count = 0;
+   }
+   
+   count += 10;
    System.out.println("latitude, longitude: = " + phiTheta.x%360 + " " + phiTheta.y%360);
+    //phitheta y is longitude, x is latitude
+    float latitude = phiTheta.x;
+    float longitude = phiTheta.y;
+    
+    double cosLat = Math.cos(latitude * PI / 180);
+    double sinLat = Math.sin(latitude * PI / 180);
+    
+    double cosLong = Math.cos(longitude * PI / 180);
+    double sinLong = Math.sin(longitude * PI / 180); 
+    
+   double c = 1 / Math.sqrt(cosLat * cosLat + (1 - f) * (1 - f) * sinLat * sinLat);
+   double s = (1 - f) * (1 - f) * c;
 
-   float x = (((jorden.radius+altitude)/100)*sin((phiTheta.x%360)*PI/180));
-   float y = (((jorden.radius+altitude)/100)*sin((phiTheta.y%180)*PI/90));
-   float z = (((jorden.radius+altitude)/100)*cos(phiTheta.x*PI/180));
-   return new PVector(x,y,z);
+    double  x = ((R*c + altitude/100) * cosLat * cosLong);
+    double y = ((R*c + altitude/100) * cosLat * sinLong);
+    double z = ((R*s + altitude/100) * sinLat);
+   
+   
+   return new PVector((float)x,(float)y,(float)z);
  }
  
 
  
- PVector getLocationApi() //gets the current location
+ PVector getLocationApi(int index) //returns the current location, in coordinates without calling the api
  {
-   //loads data from api
-   json = loadJSONObject("https://api.n2yo.com/rest/v1/satellite/positions/"+satellitID+"/41.702/-76.014/4"+altitude+"/2/&apiKey=UEU9UF-CWPF7M-28SHD2-4Y5Q");
-   JSONArray toArray = json.getJSONArray("positions");
-   
-   //picks out the first data, and saves it and returns it.
-   JSONObject toObject = toArray.getJSONObject(0);
+   //picks out the "index" data, and saves it and returns it.
+   JSONObject toObject = allLocations.getJSONObject(index);
    Float phi = toObject.getFloat("satlatitude");
    float theta = toObject.getFloat("satlongitude");
-            System.out.println("longitude = " + theta + "lattitude: " + phi);
+   System.out.println("longitude = " + theta + "lattitude: " + phi);
    return new PVector(phi,theta);
  }
  
  
- PVector getSpeedApi() //method that returns a vector describing the movement of the satelite
+ JSONArray getFutureLocationsFromApi() //method that returns an array with a lot of positions
  {
    //load the information, and save it in an object, to be manipulated.
-   json = loadJSONObject("https://api.n2yo.com/rest/v1/satellite/positions/"+satellitID+"/41.702/-76.014/4"+altitude+"/2/&apiKey=UEU9UF-CWPF7M-28SHD2-4Y5Q");
+   json = loadJSONObject("https://api.n2yo.com/rest/v1/satellite/positions/"+satellitID+"/41.702/-76.014/4"+altitude+"/10000/&apiKey=UEU9UF-CWPF7M-28SHD2-4Y5Q");
    JSONArray toArray = json.getJSONArray("positions");
    
    //save the first position of the object
@@ -91,6 +114,6 @@ void drawSatellit()
    //now convert to direction vector, and return.
    float speedPhi = phi2-phi1; 
    float speedTheta = theta2-theta1;
-   return new PVector(speedPhi,speedTheta);
+   return toArray;
  }
 }

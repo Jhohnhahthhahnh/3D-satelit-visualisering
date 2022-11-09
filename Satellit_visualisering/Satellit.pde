@@ -44,7 +44,7 @@ float e2 = 1 - (1 - f) * (1 - f);
      }
      System.out.println(endIndex + "times is " + times);
    }
-   endIndex = 6000;
+   endIndex = 900;
    
  } 
  
@@ -122,7 +122,7 @@ void drawSatellit()
  JSONArray getFutureLocationsFromApi() //method that returns an array with a lot of positions
  {
    //load the information, and save it in an object, to be manipulated.
-   json = loadJSONObject("https://api.n2yo.com/rest/v1/satellite/positions/"+satellitID+"/41.702/-76.014/4"+altitude+"/10000/&apiKey=UEU9UF-CWPF7M-28SHD2-4Y5Q");
+   json = loadJSONObject("https://api.n2yo.com/rest/v1/satellite/positions/"+satellitID+"/41.702/-76.014/4"+altitude+"/1000/&apiKey=UEU9UF-CWPF7M-28SHD2-4Y5Q");
    JSONArray toArray = json.getJSONArray("positions");
    
    return toArray;

@@ -19,7 +19,7 @@ void setup()
   jorden = new jordklode(new PVector(), jordbillede, 63.71);
   rummet = new jordklode(new PVector(), jordbillede, 700);
 
-  satellit = new Satellit(new PVector(100, 100, 100), satellitbillede, new PVector(20, 10, 20), 25544, 408);
+  satellit = new Satellit(new PVector(100, 100, 100), satellitbillede, new PVector(20, 10, 20), 25544, 2008, 10);
 }
 
 void draw()

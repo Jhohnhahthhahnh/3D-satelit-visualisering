@@ -6,6 +6,7 @@ class Satellit extends Object
  int altitude;
  int endIndex = 0;
  int currentIndex;
+ int radius;
  
  //magic variables used in converting LLA to XYZ
 float f_inv = 298.257224;
@@ -17,9 +18,10 @@ float e2 = 1 - (1 - f) * (1 - f);
 
  PVector phiTheta; //pvector containing phi, and theta.
  JSONArray allLocations; //vector describing the direction of the satellite, in phi and theta
- Satellit(PVector _location, PImage _billede, PVector _dimensions, int _satellitID, int _altitude)
+ Satellit(PVector _location, PImage _billede, PVector _dimensions, int _satellitID, int _altitude, int _radius)
  {
    super(_location, _billede);
+   this.radius = _radius;
    this.dimensions = _dimensions;
    this.satellitID = _satellitID;
    this.altitude = _altitude;
@@ -55,17 +57,20 @@ void drawSatellit()
 
    
    //draw satellite as myre.
-   PShape Myre;
+   
+       PShape Myre;
    pushMatrix();
    translate(width/2, height/2); 
    rotateX(xrotate);
    rotateY(yangel);
    translate(location.x, location.y, location.z); 
-   Myre = createShape(BOX, dimensions.x, dimensions.y, dimensions.z);
+   Myre = createShape(SPHERE, radius);
    Myre.setTexture(billede);
    noStroke();
    shape(Myre);
    popMatrix();
+    
+
  }
  
  

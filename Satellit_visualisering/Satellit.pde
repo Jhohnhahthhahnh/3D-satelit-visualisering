@@ -7,6 +7,7 @@ class Satellit extends Object
  int endIndex = 0;
  int currentIndex;
  int radius;
+ int arraySize = 6000;
  
  //magic variables used in converting LLA to XYZ
 float f_inv = 298.257224;
@@ -34,17 +35,21 @@ float e2 = 1 - (1 - f) * (1 - f);
    endIndex = endIndex + 100;
    System.out.println(startlocation.y + " new " + getLocationApi(endIndex).y);
 
-   while(Math.abs(startlocation.y - getLocationApi(endIndex).y) > 1 && times < 2)
+   while(endIndex < arraySize - 15 && Math.abs(startlocation.y - getLocationApi(endIndex).y) > 1 && times < 2)
    {
      endIndex++;
-     if(startlocation.y - getLocationApi(endIndex).y < 1)
+     if(Math.abs(startlocation.y - getLocationApi(endIndex).y) < 1)
      {
-       endIndex = endIndex + 100;
+       endIndex = endIndex + 500;
        times++;
      }
      System.out.println(endIndex + "times is " + times);
+     if(endIndex < (arraySize - 10))
+     {
+       System.out.println(endIndex);
+       System.out.println(startlocation.y + " currentlocation " + getLocationApi(endIndex).y + " ID " + satellitID);
+     }
    }
-   endIndex = 900;
    
  } 
  
@@ -53,7 +58,6 @@ void drawSatellit()
  {
    //get location of satellite
    location = updateLocation();
-   System.out.println("location = " + location + satellitID);
 
    
    //draw satellite as myre.
@@ -82,7 +86,6 @@ void drawSatellit()
      currentIndex = 0;
    }
    currentIndex += 10;
-   System.out.println("index" + currentIndex + satellitID);
    
    
    //phitheta y is longitude, x is latitude
@@ -110,11 +113,10 @@ void drawSatellit()
  
  PVector getLocationApi(int index) //returns the current location, in coordinates without calling the api
  {
-   //picks out the "index" data, and saves it and returns it.
+
    JSONObject toObject = allLocations.getJSONObject(index);
    Float phi = toObject.getFloat("satlatitude");
    float theta = toObject.getFloat("satlongitude");
-   System.out.println("longitude = " + theta + "lattitude: " + phi);
    return new PVector(phi,theta);
  }
  
@@ -122,7 +124,7 @@ void drawSatellit()
  JSONArray getFutureLocationsFromApi() //method that returns an array with a lot of positions
  {
    //load the information, and save it in an object, to be manipulated.
-   json = loadJSONObject("https://api.n2yo.com/rest/v1/satellite/positions/"+satellitID+"/41.702/-76.014/4"+altitude+"/1000/&apiKey=UEU9UF-CWPF7M-28SHD2-4Y5Q");
+   json = loadJSONObject("https://api.n2yo.com/rest/v1/satellite/positions/"+satellitID+"/41.702/-76.014/4"+altitude+"/6000/&apiKey=UEU9UF-CWPF7M-28SHD2-4Y5Q");
    JSONArray toArray = json.getJSONArray("positions");
    
    return toArray;

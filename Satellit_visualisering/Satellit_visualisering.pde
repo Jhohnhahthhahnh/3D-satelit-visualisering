@@ -12,7 +12,6 @@ jordklode jorden;
 
 void setup()
 {
-  frameRate(60);
   size(600,600, P3D);
   satellitbillede = loadImage("Dansemyre 1.png");
   rum = loadImage("rum.jpg");
@@ -20,8 +19,8 @@ void setup()
   jorden = new jordklode(new PVector(), jordbillede, 63.71);
   rummet = new jordklode(new PVector(), rum, 700);
   satellit = new Satellit[]{
-    new Satellit(new PVector(100, 100, 100), satellitbillede, new PVector(20, 10, 20), 25544, 408, 10),
-    new Satellit(new PVector(100, 100, 100), satellitbillede, new PVector(20, 10, 20), 36516, 408, 10)
+    new Satellit(new PVector(100, 100, 100), satellitbillede, new PVector(20, 10, 20), 25544, 2008, 10),
+    new Satellit(new PVector(100, 100, 100), satellitbillede, new PVector(20, 10, 20), 33591, 2008, 10)
   };
 }
 
